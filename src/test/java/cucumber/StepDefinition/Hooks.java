@@ -10,6 +10,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,9 +27,16 @@ public class Hooks {
     public void openBrowser(Scenario scenario){
         this.scenario = scenario;
         WebDriverManager.chromedriver().setup();
+        ChromeOptions chromeOptions = new ChromeOptions();
+
+        chromeOptions.addArguments("--headless");
+        driver = new ChromeDriver(chromeOptions);
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+
+        /*WebDriverManager.chromedriver().setup();
         driver = WebDriverFactory.createWebDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //driver = new ChromeDriver();
+        //driver = new ChromeDriver();*/
     }
 
     @After

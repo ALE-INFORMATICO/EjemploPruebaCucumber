@@ -26,6 +26,16 @@
             </snapshots>
         </repository>
     </repositories>
+    <distributionManagement>
+        <repository>
+            <id>dev-azure-com-alejandrocontreras-alejandrocontreras</id>
+            <url>https://pkgs.dev.azure.com/alejandrocontreras/_packaging/alejandrocontreras/maven/v1</url>
+        </repository>
+        <snapshotRepository>
+            <id>dev-azure-com-alejandrocontreras-alejandrocontreras</id>
+            <url>https://pkgs.dev.azure.com/alejandrocontreras/_packaging/alejandrocontreras/maven/v1</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>

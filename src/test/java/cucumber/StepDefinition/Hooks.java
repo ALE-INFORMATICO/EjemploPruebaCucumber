@@ -17,10 +17,7 @@ public class Hooks {
     public static WebDriver driver;
     public Scenario scenario;
     @Before
-    /**
-     * Delete all cookies at the start of each scenario to avoid
-     * shared state between tests
-     */
+    //Delete all cookies at the start of each scenario to avoid shared state between tests
     public void openBrowser(Scenario scenario){
         this.scenario = scenario;
         driver = WebDriverFactory.createWebDriver();
@@ -28,9 +25,7 @@ public class Hooks {
     }
 
     @After
-    /**
-     * Embed a screenshot in test report if test is marked as failed
-     */
+    //Embed a screenshot in test report if test is marked as failed
     public void tearDown(Scenario scenario){
         if(scenario.isFailed()) {
             try {

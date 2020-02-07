@@ -79,7 +79,6 @@ public class BasePage {
         return false;
     }
 
-
     public void waitForInvisibilityOfElementByText(By by, String text) {
         wait.until(ExpectedConditions.invisibilityOfElementWithText(by, text));
     }
@@ -119,6 +118,4 @@ public class BasePage {
             }
         };
     }
-
-
 }

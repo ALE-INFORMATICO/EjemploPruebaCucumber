@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 
 public class WebDriverFactory {
     //private String PATH_SAFARI_DRIVER = "/usr/bin/safaridriver";
@@ -31,11 +32,10 @@ public class WebDriverFactory {
             case "ie":
                 //TODO: Arreglar método
                 WebDriverManager.iedriver().setup();
-                return new InternetExplorerDriver();
+                InternetExplorerOptions ieo = new InternetExplorerOptions();
+                return new InternetExplorerDriver(ieo);
             case "safari":
                 //TODO: implement SafariDriver to factory
-                //return new SafariDriver();
-                //throw new RuntimeException("Unsupported webdriver: " + webdriver);
             default:
                 throw new RuntimeException("Unsupported webdriver: " + webdriver);
         }

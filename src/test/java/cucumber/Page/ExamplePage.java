@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ExamplePage extends BasePage {
     WebDriver driver;
 
-
     @FindBy(name="q")
     WebElement inputQ;
 
@@ -18,8 +17,6 @@ public class ExamplePage extends BasePage {
         this.driver= driver;
         PageFactory.initElements(driver, this);
     }
-
-
 
     public void setInputQ(String qText){
         waitForElementToBeVisible(inputQ);

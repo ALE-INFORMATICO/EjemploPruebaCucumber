@@ -4,14 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cucumber</groupId>
-    <artifactId>test</artifactId>
+    <groupId>cl.AlejandroAutomation</groupId>
+    <artifactId>proyectoCucumberBDD</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
-        <cucumber.version>4.2.6</cucumber.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cucumberJava.version>5.1.3</cucumberJava.version>
+        <cucumberJunit.version>5.1.3</cucumberJunit.version>
+        <junit.version>4.12</junit.version>
+        <seleniumJava.version>3.141.59</seleniumJava.version>
+        <webDriverManager.version>3.8.1</webDriverManager.version>
     </properties>
 
     <repositories>
@@ -41,34 +45,34 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.version}</version>
+            <version>${cucumberJava.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>${cucumber.version}</version>
+            <version>${cucumberJunit.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
+            <version>${seleniumJava.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>3.4.0</version>
+            <version>${webDriverManager.version}</version>
         </dependency>
 
     </dependencies>

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ExamplePage extends BasePage {
     WebDriver driver;
 
-    @FindBy(name="q")
+    @FindBy(name="q2")
     WebElement inputQ;
 
     public ExamplePage(WebDriver driver){

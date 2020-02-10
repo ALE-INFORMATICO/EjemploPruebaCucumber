@@ -17,12 +17,12 @@ public class WebDriverFactory {
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions fo = new FirefoxOptions();
-                //fo.addArguments("--headless");
+                fo.addArguments("--headless");
                 return new FirefoxDriver(fo);
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions co = new ChromeOptions();
-                //co.addArguments("--headless");
+                co.addArguments("--headless");
                 co.addArguments("--start-maximized");
                 co.addArguments("--ignore-certificate-errors");
                 co.addArguments("--disable-popup-blocking");

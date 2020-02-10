@@ -8,5 +8,3 @@ Feature: Search on Google
     Examples:
     |word|
     |apple|
-    |orange|
-    |pineapple|

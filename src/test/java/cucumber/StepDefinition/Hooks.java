@@ -22,7 +22,7 @@ public class Hooks {
     public void openBrowser(Scenario scenario){
         this.scenario = scenario;
         driver = WebDriverFactory.createWebDriver();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @After

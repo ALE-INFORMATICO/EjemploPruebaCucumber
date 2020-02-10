@@ -25,6 +25,7 @@ public class exampleDefinition {
     public void i_search_for(String string) {
         examplePage.setInputQ(string);
         examplePage.submitInputQ();
+        Assert.assertTrue(false);
     }
 
     @Then("the tittle have to contain {string}")

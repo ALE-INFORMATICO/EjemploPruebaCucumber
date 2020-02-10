@@ -16,6 +16,7 @@ public class Hooks {
 
     public static WebDriver driver;
     public Scenario scenario;
+
     @Before
     //Delete all cookies at the start of each scenario to avoid shared state between tests
     public void openBrowser(Scenario scenario){

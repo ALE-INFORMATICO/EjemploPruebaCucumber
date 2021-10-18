@@ -10,86 +10,103 @@
     <packaging>jar</packaging>
 
     <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+        <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
+        <maven.compiler.testTarget>${maven.compiler.source}</maven.compiler.testTarget>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cucumberJava.version>5.1.3</cucumberJava.version>
-        <cucumberJunit.version>5.1.3</cucumberJunit.version>
-        <junit.version>4.12</junit.version>
-        <seleniumJava.version>3.141.59</seleniumJava.version>
-        <webDriverManager.version>3.8.1</webDriverManager.version>
+
+        <selenium.java.version>4.0.0</selenium.java.version>
+        <cucumber.version>7.0.0</cucumber.version>
+        <webdrivermanager.version>5.0.3</webdrivermanager.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>dev-azure-com-alejandrocontreras-alejandrocontreras</id>
-            <url>https://pkgs.dev.azure.com/alejandrocontreras/_packaging/alejandrocontreras/maven/v1</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <repository>
-            <id>dev-azure-com-alejandrocontreras-alejandrocontreras</id>
-            <url>https://pkgs.dev.azure.com/alejandrocontreras/_packaging/alejandrocontreras/maven/v1</url>
-        </repository>
-        <snapshotRepository>
-            <id>dev-azure-com-alejandrocontreras-alejandrocontreras</id>
-            <url>https://pkgs.dev.azure.com/alejandrocontreras/_packaging/alejandrocontreras/maven/v1</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.java.version}</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>${cucumberJava.version}</version>
-            <scope>test</scope>
+            <version>${cucumber.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>${cucumberJunit.version}</version>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${seleniumJava.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>${webDriverManager.version}</version>
+            <version>${webdrivermanager.version}</version>
+            <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.32</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>selenium-docker-bdd</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+            <!-- Plugin que permite copiar las dependencias en la fase previa al empaquetado en un directorio especificado en outputDirectory -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/libs</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- When you want to create a jar containing test-classes, you would probably want to reuse those classes -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
 </project>

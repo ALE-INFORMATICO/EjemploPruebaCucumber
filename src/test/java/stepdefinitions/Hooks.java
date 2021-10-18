@@ -1,6 +1,6 @@
-package cucumber.StepDefinition;
+package stepdefinitions;
 
-import cucumber.util.WebDriverFactory;
+import util.WebDriverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
@@ -10,19 +10,26 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class Hooks {
 
     public static WebDriver driver;
     public Scenario scenario;
+    public static String nombreTest;
 
     @Before
     //Delete all cookies at the start of each scenario to avoid shared state between tests
     public void openBrowser(Scenario scenario){
         this.scenario = scenario;
+        nombreTest = scenario.getName();
+
         driver = WebDriverFactory.createWebDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().scriptTimeout(Duration.ofMinutes(2));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
     }
 
     @After
@@ -30,9 +37,9 @@ public class Hooks {
     public void tearDown(Scenario scenario){
         if(scenario.isFailed()) {
             try {
-                scenario.write("Current Page URL is " + driver.getCurrentUrl());
-                byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-                scenario.embed(screenshot, "image/png");
+                scenario.log("Current Page URL is " + driver.getCurrentUrl());
+                final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenshot, "image/png", nombreTest);
             } catch (WebDriverException somePlatformsDontSupportScreenshots) {
                 System.err.println(somePlatformsDontSupportScreenshots.getMessage());
             }
@@ -42,8 +49,8 @@ public class Hooks {
 
     @AfterStep
     public void screenshot(Scenario scenario){
-        scenario.write("Current Page URL is " + driver.getCurrentUrl());
+        scenario.log("Current Page URL is " + driver.getCurrentUrl());
         byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-        scenario.embed(screenshot, "image/png");
+        scenario.attach(screenshot, "image/png", nombreTest);
     }
 }
